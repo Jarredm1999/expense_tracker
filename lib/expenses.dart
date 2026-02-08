@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:expense_tracker/monthly_budget.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -14,6 +16,9 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
+  late MonthlyBudget budgetWidget;
+  double _totalExpenseValue = 0;
+
   final List<Expense> _registeredExpenses = [
     Expense(
       title: 'Flutter Course',
@@ -31,6 +36,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _addExpense(Expense newEpense) {
     _registeredExpenses.add(newEpense);
+    updateBudget(newEpense);
     setState(() {
       _registeredExpenses;
     });
@@ -68,6 +74,39 @@ class _ExpensesState extends State<Expenses> {
     );
   }
 
+  final double _monthlyBudget = 4000;
+
+  double get monthlyBudget {
+    return _monthlyBudget;
+  }
+
+  @override
+  void initState() {
+    double budgetLeft = monthlyBudget;
+    for (var expense in _registeredExpenses) {
+      budgetLeft -= expense.amount;
+      _totalExpenseValue += expense.amount;
+    }
+    budgetWidget = MonthlyBudget(
+      monthlyBudget: monthlyBudget,
+      budgetLeft: budgetLeft,
+      totalExpenseValue: _totalExpenseValue,
+    );
+    super.initState();
+  }
+
+  void updateBudget(Expense newEpense) {
+    final updatedBudget = monthlyBudget - newEpense.amount;
+    _totalExpenseValue += newEpense.amount;
+    setState(() {
+      budgetWidget = MonthlyBudget(
+        monthlyBudget: monthlyBudget,
+        budgetLeft: updatedBudget,
+        totalExpenseValue: _totalExpenseValue,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget mainContent = _registeredExpenses.isEmpty
@@ -94,6 +133,7 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
+          Row(children: [budgetWidget]),
           Text('The chart'),
           Expanded(child: mainContent),
         ],

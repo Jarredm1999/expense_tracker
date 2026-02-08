@@ -12,7 +12,7 @@ var kColorScheme = ColorScheme.fromSeed(
 void main() {
   runApp(
     MaterialApp(
-      theme: ThemeData().copyWith(
+      theme: ThemeData(fontFamily: GoogleFonts.spaceMono().fontFamily).copyWith(
         colorScheme: kColorScheme,
         appBarTheme: AppBarTheme().copyWith(
           backgroundColor: kColorScheme.onPrimaryContainer,
