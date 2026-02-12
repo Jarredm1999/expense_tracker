@@ -12,7 +12,7 @@ var kColorScheme = ColorScheme.fromSeed(
 void main() {
   runApp(
     MaterialApp(
-      theme: ThemeData(fontFamily: GoogleFonts.spaceMono().fontFamily).copyWith(
+      theme: ThemeData(fontFamily: 'SpaceMono').copyWith(
         colorScheme: kColorScheme,
         appBarTheme: AppBarTheme().copyWith(
           backgroundColor: kColorScheme.onPrimaryContainer,
@@ -27,7 +27,13 @@ void main() {
             backgroundColor: kColorScheme.primaryContainer,
           ),
         ),
-        textTheme: GoogleFonts.spaceMonoTextTheme(),
+        // textTheme: ThemeData().textTheme.copyWith(
+        //   titleLarge: GoogleFonts.spaceMono(
+        //     fontWeight: FontWeight.bold,
+        //     color: kColorScheme.onSecondaryContainer,
+        //     fontSize: 14,
+        //   ),
+        // ),
       ),
       home: Expenses(),
     ),
