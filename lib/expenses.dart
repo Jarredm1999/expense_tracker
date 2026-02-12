@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:expense_tracker/models/expense.dart';
@@ -36,7 +35,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _addExpense(Expense newEpense) {
     _registeredExpenses.add(newEpense);
-    updateBudget(newEpense);
+    updateBudget(newEpense.amount);
     setState(() {
       _registeredExpenses;
     });
@@ -44,6 +43,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _removeExpense(Expense removedExpense) {
     final removedItemIndex = _registeredExpenses.indexOf(removedExpense);
+    updateBudget(-1 * removedExpense.amount);
     setState(() {
       _registeredExpenses.remove(removedExpense);
     });
@@ -58,6 +58,7 @@ class _ExpensesState extends State<Expenses> {
           onPressed: () {
             setState(() {
               _registeredExpenses.insert(removedItemIndex, removedExpense);
+              updateBudget(removedExpense.amount);
             });
           },
         ),
@@ -95,9 +96,9 @@ class _ExpensesState extends State<Expenses> {
     super.initState();
   }
 
-  void updateBudget(Expense newEpense) {
-    final updatedBudget = monthlyBudget - newEpense.amount;
-    _totalExpenseValue += newEpense.amount;
+  void updateBudget(double expenseAmount) {
+    _totalExpenseValue += expenseAmount;
+    final updatedBudget = monthlyBudget - _totalExpenseValue;
     setState(() {
       budgetWidget = MonthlyBudget(
         monthlyBudget: monthlyBudget,

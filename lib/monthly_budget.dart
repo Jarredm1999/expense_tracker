@@ -38,6 +38,7 @@ class MonthlyBudget extends StatelessWidget {
                       children: [
                         Text('Starting Budget:'),
                         Text('Total Expense Value:'),
+                        Text(''),
                         Text('Budget Left:'),
                       ],
                     ),
@@ -46,8 +47,17 @@ class MonthlyBudget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text('\$${monthlyBudget.toStringAsFixed(2)}'),
-                      Text('\$${totalExpenseValue.toStringAsFixed(2)}'),
-                      Text('\$${budgetLeft.toStringAsFixed(2)}'),
+                      Text('- \$${totalExpenseValue.toStringAsFixed(2)}'),
+                      SizedBox(
+                        width: 60,
+                        child: Divider(thickness: 1, color: Colors.black),
+                      ),
+                      Text(
+                        '\$${budgetLeft.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          color: budgetLeft <= 0 ? Colors.red : Colors.green,
+                        ),
+                      ),
                     ],
                   ),
                 ],
