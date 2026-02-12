@@ -56,6 +56,8 @@ class MonthlyBudget extends StatelessWidget {
                         '\$${budgetLeft.toStringAsFixed(2)}',
                         style: TextStyle(
                           color: budgetLeft <= 0 ? Colors.red : Colors.green,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
