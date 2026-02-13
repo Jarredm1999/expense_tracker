@@ -14,6 +14,8 @@ class MonthlyBudget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Expanded(
       child: Card(
         child: Padding(
