@@ -97,7 +97,12 @@ class _NewExpenseState extends State<NewExpense> {
             maxLength: 50,
             controller: _titleController,
             keyboardType: TextInputType.text,
-            decoration: InputDecoration(label: Text('Title')),
+            decoration: InputDecoration(
+              label: Text(
+                'Title',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
           ),
           Row(
             children: [
@@ -106,7 +111,10 @@ class _NewExpenseState extends State<NewExpense> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     prefixText: '\$',
-                    label: Text('Amount'),
+                    label: Text(
+                      'Amount',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
                   controller: _amountController,
                 ),
@@ -120,6 +128,7 @@ class _NewExpenseState extends State<NewExpense> {
                     _selectedDate == null
                         ? 'No Date Selected'
                         : formatter.format(_selectedDate!),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   IconButton(
                     onPressed: _presentDatePicker,
@@ -138,7 +147,10 @@ class _NewExpenseState extends State<NewExpense> {
                     .map(
                       (category) => DropdownMenuItem(
                         value: category,
-                        child: Text(category.name.toUpperCase()),
+                        child: Text(
+                          category.name.toUpperCase(),
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                     )
                     .toList(),
