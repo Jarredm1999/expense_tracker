@@ -4,6 +4,7 @@ import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:expense_tracker/monthly_budget.dart';
+import 'package:expense_tracker/widgets/chart.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -84,9 +85,11 @@ class _ExpensesState extends State<Expenses> {
   @override
   void initState() {
     double budgetLeft = monthlyBudget;
+    _totalExpenseValue = ExpenseBucket(
+      expenses: _registeredExpenses,
+    ).totalExpense;
     for (var expense in _registeredExpenses) {
       budgetLeft -= expense.amount;
-      _totalExpenseValue += expense.amount;
     }
     budgetWidget = MonthlyBudget(
       monthlyBudget: monthlyBudget,
@@ -135,7 +138,7 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           Row(children: [budgetWidget]),
-          Text('The chart'),
+          Chart(expenses: _registeredExpenses),
           Expanded(child: mainContent),
         ],
       ),

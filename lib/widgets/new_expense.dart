@@ -97,6 +97,7 @@ class _NewExpenseState extends State<NewExpense> {
             maxLength: 50,
             controller: _titleController,
             keyboardType: TextInputType.text,
+            style: Theme.of(context).textTheme.titleLarge,
             decoration: InputDecoration(
               label: Text(
                 'Title',
@@ -109,6 +110,7 @@ class _NewExpenseState extends State<NewExpense> {
               Expanded(
                 child: TextField(
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  style: Theme.of(context).textTheme.titleLarge,
                   decoration: InputDecoration(
                     prefixText: '\$',
                     label: Text(
